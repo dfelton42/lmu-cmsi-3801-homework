@@ -13,11 +13,17 @@ def change(amount: int) -> dict[int, int]:
     return counts
 
 
-# Write your first then lower case function here
+def first_then_lower_case(strings: list[str], condition: Callable[[str], bool]):
+    for s in strings:
+        if condition(s):
+            return s.lower()
+    return None
 
-
-# Write your powers generator here
-
+def powers_generator(*, base: int, limit: int):
+    power = 1
+    while power <= limit:
+        yield power
+        power *= base
 
 # Write your say function here
 
