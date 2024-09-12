@@ -36,7 +36,7 @@ expect(change(250) == {25: 10, 10: 0, 5: 0, 1: 0})
 expect(change(100000000037) == {25: 4000000001, 10: 1, 5: 0, 1: 2})
 expect(change(10000000000005) == {25: 400000000000, 10: 0, 5: 1, 1: 0})
 
-# # Uncomment the following tests as you complete the exercises
+# Uncomment the following tests as you complete the exercises
 
 suite("first_then_lower_case")
 def nonempty(s): return s != ""
@@ -75,10 +75,10 @@ expect(meaningful_line_count("../test-for-line-count.txt") == 5)
 
 suite("Quaternion")
 q = Quaternion(3.5, 2.25, -100.0, -1.25)
-expect(q.w == 3.5)
-expect(q.x == 2.25)
-expect(q.y == -100.0)
-expect(q.z == -1.25)
+expect(q.a == 3.5)
+expect(q.b == 2.25)
+expect(q.c == -100.0)
+expect(q.d == -1.25)
 
 q1 = Quaternion(1.0, 3.0, 5.0, 2.0)
 q2 = Quaternion(-2.0, 2.0, 8.0, -1.0)
