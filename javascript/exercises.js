@@ -38,6 +38,28 @@ export function* powersGenerator({ ofBase, upTo }) {
 
 
 // Write your say function here
+export function say(word) {
+  let words = word !== undefined ? [word] : [];
+
+  function chain(nextWord) {
+      if (nextWord !== undefined) {
+          words.push(nextWord);
+          return chain;
+      } else {
+          return words.join(' ');
+      }
+  }
+
+  
+  // so say() returns empty string
+  if (word === undefined) {
+      return '';
+  }
+
+  return chain;
+}
+
+
 
 // Write your line count function here
 
