@@ -17,7 +17,15 @@ export function change(amount) {
 
 // Write your first then lower case function here
 
-// Write your powers generator here
+
+export function firstThenLowerCase(arr,predicate){
+  return arr.find(predicate)?.toLowerCase();
+}
+
+
+
+
+// Write your powers generator here 
 
 // Write your say function here
 

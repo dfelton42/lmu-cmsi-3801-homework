@@ -2,9 +2,9 @@ import { describe, it } from "node:test"
 import { deepEqual, throws, rejects } from "node:assert/strict"
 import {
   change,
-  // firstThenLowerCase,
+  firstThenLowerCase,
   // say,
-  // powersGenerator,
+  //powersGenerator,
   // meaningfulLineCount,
   // Quaternion,
 } from "./exercises.js"
@@ -35,44 +35,44 @@ describe("The change function", () => {
 
 // Uncomment the following tests as you complete the exercises
 
-// describe("The firstThenLowerCase function", () => {
-//   const nonEmpty = (s) => s !== ""
-//   const lengthGreaterThan3 = (s) => s.length > 3
-//   it("works", () => {
-//     deepEqual(firstThenLowerCase([], nonEmpty), undefined)
-//     deepEqual(firstThenLowerCase(["", "A", "B"], nonEmpty), "a")
-//     deepEqual(
-//       firstThenLowerCase(["", "A", "ABC"], lengthGreaterThan3),
-//       undefined
-//     )
-//     deepEqual(
-//       firstThenLowerCase(["ABC", "ABCD", "ABCDE"], lengthGreaterThan3),
-//       "abcd"
-//     )
-//   })
-// })
+ describe("The firstThenLowerCase function", () => {
+   const nonEmpty = (s) => s !== ""
+   const lengthGreaterThan3 = (s) => s.length > 3
+   it("works", () => {
+     deepEqual(firstThenLowerCase([], nonEmpty), undefined)
+     deepEqual(firstThenLowerCase(["", "A", "B"], nonEmpty), "a")
+     deepEqual(
+       firstThenLowerCase(["", "A", "ABC"], lengthGreaterThan3),
+       undefined
+     )
+     deepEqual(
+       firstThenLowerCase(["ABC", "ABCD", "ABCDE"], lengthGreaterThan3),
+       "abcd"
+     )
+   })
+ })
 
-// describe("The say function", () => {
-//   it("works when there are no words", () => {
-//     deepEqual(say(), "")
-//   })
-//   it("works when there are words", () => {
-//     deepEqual(say("hi")(), "hi")
-//     deepEqual(say("hi")("there")(), "hi there")
-//     deepEqual(
-//       say("hello")("my")("name")("is")("Colette")(),
-//       "hello my name is Colette"
-//     )
-//   })
-//   it("handles spaces and empty words", () => {
-//     deepEqual(say("h i")(), "h i")
-//     deepEqual(say("hi ")("   there")(), "hi     there")
-//     deepEqual(say("")("")("dog")("")("go")(), "  dog  go")
-//   })
-//   it("handles emojis", () => {
-//     deepEqual(say("😄🤗")("💀👊🏾")(), "😄🤗 💀👊🏾")
-//   })
-// })
+//  describe("The say function", () => {
+//    it("works when there are no words", () => {
+//      deepEqual(say(), "")
+//    })
+//    it("works when there are words", () => {
+//      deepEqual(say("hi")(), "hi")
+//      deepEqual(say("hi")("there")(), "hi there")
+//      deepEqual(
+//        say("hello")("my")("name")("is")("Colette")(),
+//        "hello my name is Colette"
+//      )
+//    })
+//    it("handles spaces and empty words", () => {
+//      deepEqual(say("h i")(), "h i")
+//      deepEqual(say("hi ")("   there")(), "hi     there")
+//      deepEqual(say("")("")("dog")("")("go")(), "  dog  go")
+//    })
+//    it("handles emojis", () => {
+//      deepEqual(say("😄🤗")("💀👊🏾")(), "😄🤗 💀👊🏾")
+//    })
+//  })
 
 // describe("The powers generator", () => {
 //   it("works as expected", () => {
