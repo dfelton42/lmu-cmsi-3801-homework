@@ -49,20 +49,22 @@ end
 
 -- Write your line count function here
   function meaningful_line_count(filename)
-    local file = io.open(filename, "r")
-    if not file then error("No such file") end
-    
-    local count = 0
-    for line in file:lines() do
-      local trimmed_line = line:match("^%s*(.-)%s*$")
-      if trimmed_line ~= "" and not trimmed_line:match("^%s*%-%-") then
-        count = count + 1
-      end
-    end
-    file:close()
-    return count
+  local file, err = io.open(filename, "r")
+  if not file then
+    print("Warning: " .. err)  
+    return 0  
   end
-
+  
+  local count = 0
+  for line in file:lines() do
+    local trimmed_line = line:match("^%s*(.-)%s*$")
+    if trimmed_line ~= "" and not trimmed_line:match("^%s*%-%-") then
+      count = count + 1
+    end
+  end
+  file:close()
+  return count
+end
 -- Write your Quaternion table here
 Quaternion = {}
 Quaternion.__index = Quaternion
