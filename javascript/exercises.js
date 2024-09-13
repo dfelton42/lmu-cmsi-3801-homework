@@ -127,7 +127,7 @@ export class Quaternion {
     if (this.c !== 0) str += `${this.c > 0 ? '+' : ''}${this.c}j`;
     if (this.d !== 0) str += `${this.d > 0 ? '+' : ''}${this.d}k`;
 
-    // Ensure that zero quaternions are represented as "0"
+    // Ensuring that zero quaternions are represented as "0"
     if (str === '') str = '0';
 
     return str;
