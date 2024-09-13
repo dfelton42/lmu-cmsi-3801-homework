@@ -27,6 +27,16 @@ export function firstThenLowerCase(arr,predicate){
 
 // Write your powers generator here 
 
+export function* powersGenerator({ ofBase, upTo }) {
+  let power = 1; // Start with 1, which is ofBase^0
+
+  while (power <= upTo) { 
+    yield power;
+    power *= ofBase; // Compute the next power
+  }
+}
+
+
 // Write your say function here
 
 // Write your line count function here
