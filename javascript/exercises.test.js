@@ -5,8 +5,8 @@ import {
   firstThenLowerCase,
   say,
   powersGenerator,
-   meaningfulLineCount,
-   Quaternion,
+  meaningfulLineCount,
+  Quaternion,
 } from "./exercises.js"
 
 

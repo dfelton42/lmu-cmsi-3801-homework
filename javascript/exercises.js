@@ -123,13 +123,17 @@ export class Quaternion {
   toString() {
     let str = '';
     if (this.a !== 0) str += `${this.a}`;
-    if (this.b !== 0) str += `${this.b > 0 ? '+' : ''}${this.b}i`;
-    if (this.c !== 0) str += `${this.c > 0 ? '+' : ''}${this.c}j`;
-    if (this.d !== 0) str += `${this.d > 0 ? '+' : ''}${this.d}k`;
-
+    if (this.b !== 0) str += `${this.b > 0 && str ? '+' : ''}${this.b === 1 ? 'i' : this.b === -1 ? '-i' : `${this.b}i`}`;
+    if (this.c !== 0) str += `${this.c > 0 && str ? '+' : ''}${this.c === 1 ? 'j' : this.c === -1 ? '-j' : `${this.c}j`}`;
+    if (this.d !== 0) str += `${this.d > 0 && str ? '+' : ''}${this.d === 1 ? 'k' : this.d === -1 ? '-k' : `${this.d}k`}`;
+  
     // Ensuring that zero quaternions are represented as "0"
     if (str === '') str = '0';
-
+  
     return str;
   }
+  
+  
+  
 }
+
