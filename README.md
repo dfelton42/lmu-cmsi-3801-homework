@@ -1,4 +1,4 @@
-Group Members - Donovan Felton
+Group Members - Donovan Felton, Matthew Martel
 
 - **Homework 1 (Scripting)**: Lua, Python, JavaScript
 - **Homework 2 (Enterprise)**: Java, Kotlin, Swift
