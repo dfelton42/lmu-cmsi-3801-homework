@@ -1,0 +1,26 @@
+{
+  "name": "lmu-cmsi-3801-homework",
+  "version": "1.0.0",
+  "description": "javascript hw",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dfelton42/lmu-cmsi-3801-homework.git"
+  },
+  "keywords": [
+    "hw1"
+  ],
+  "author": "matt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dfelton42/lmu-cmsi-3801-homework/issues"
+  },
+  "homepage": "https://github.com/dfelton42/lmu-cmsi-3801-homework#readme",
+  "devDependencies": {
+    "mocha": "^10.7.3",
+    "node": "^22.8.0"
+  }
+}
