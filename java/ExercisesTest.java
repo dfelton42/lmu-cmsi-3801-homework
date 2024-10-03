@@ -28,7 +28,7 @@ public class ExercisesTest {
         }
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         new ExercisesTest().run();
     }
     //////////////////////////////////////////////////////////////////////////////////////
@@ -56,51 +56,51 @@ public class ExercisesTest {
         expect(Exercises.change(10000000000005L).equals(
                 Map.of(25, 400000000000L, 10, 0L, 5, 1L, 1, 0L)));
 
-        // Uncomment the following tests as you complete the exercises
+        // // Uncomment the following tests as you complete the exercises
 
-        // suite("firstThenLowerCase");
-        // expect(Exercises.firstThenLowerCase(
-        //         List.of(), s -> !s.isEmpty()).isEmpty());
-        // expect(Exercises.firstThenLowerCase(
-        //         List.of("", "A", "B"), s -> !s.isEmpty()).get().equals("a"));
-        // expect(Exercises.firstThenLowerCase(
-        //         List.of("", "A", "ABC"), s -> s.length() > 3).isEmpty());
-        // expect(Exercises.firstThenLowerCase(
-        //         List.of("ABC", "ABCD", "ABCDE"), s -> s.length() > 3).get().equals("abcd"));
+        suite("firstThenLowerCase");
+        expect(Exercises.firstThenLowerCase(
+                List.of(), s -> !s.isEmpty()).isEmpty());
+        expect(Exercises.firstThenLowerCase(
+                List.of("", "A", "B"), s -> !s.isEmpty()).get().equals("a"));
+        expect(Exercises.firstThenLowerCase(
+                List.of("", "A", "ABC"), s -> s.length() > 3).isEmpty());
+        expect(Exercises.firstThenLowerCase(
+                List.of("ABC", "ABCD", "ABCDE"), s -> s.length() > 3).get().equals("abcd"));
 
-        // suite("say");
-        // expect(Exercises.say().phrase().equals(""));
-        // expect(Exercises.say("hi").phrase().equals("hi"));
-        // expect(Exercises.say("Oh").and("kay").phrase().equals("Oh kay"));
-        // expect(Exercises.say("hello").and("my").and("name").and("is").and("Colette").phrase()
-        //         .equals("hello my name is Colette"));
-        // expect(Exercises.say("h i").phrase().equals("h i"));
-        // expect(Exercises.say("hi ").and("   there").phrase().equals("hi     there"));
-        // expect(Exercises.say("").and("").and("dog").and("").and("go").phrase()
-        //         .equals("  dog  go"));
-        // expect(Exercises.say("🐤🦇").and("$🦊👏🏽").and("!").phrase().equals("🐤🦇 $🦊👏🏽 !"));
-        // expect(Exercises.say("😄🤗").and("💀👊🏾").phrase().equals("😄🤗 💀👊🏾"));
-        // // Ensure there is no sharing of partial states!
-        // var greet = Exercises.say("Hello").and("there");
-        // expect(greet.and("nice").and("person").phrase().equals("Hello there nice person"));
-        // expect(greet.and("Swift").phrase().equals("Hello there Swift"));
+        suite("say");
+        expect(Exercises.say().phrase().equals(""));
+        expect(Exercises.say("hi").phrase().equals("hi"));
+        expect(Exercises.say("Oh").and("kay").phrase().equals("Oh kay"));
+        expect(Exercises.say("hello").and("my").and("name").and("is").and("Colette").phrase()
+                .equals("hello my name is Colette"));
+        expect(Exercises.say("h i").phrase().equals("h i"));
+        expect(Exercises.say("hi ").and(" there").phrase().equals("hi there"));
+        expect(Exercises.say("").and("").and("dog").and("").and("go").phrase()
+                .equals(" dog go"));
+        expect(Exercises.say("🐤🦇").and("$🦊👏🏽").and("!").phrase().equals("🐤🦇 $🦊👏🏽 !"));
+        expect(Exercises.say("😄🤗").and("💀👊🏾").phrase().equals("😄🤗 💀👊🏾"));
+        // Ensure there is no sharing of partial states!
+        var greet = Exercises.say("Hello").and("there");
+        expect(greet.and("nice").and("person").phrase().equals("Hello there nice person"));
+        expect(greet.and("Swift").phrase().equals("Hello there Swift"));
 
-        // suite("meaningfulLineCount");
-        // expectToThrow(
-        //     () -> Exercises.meaningfulLineCount("no-such-file.txt"),
-        //     FileNotFoundException.class,
-        //     "No such file");
-        // expect(Exercises.meaningfulLineCount("../test-for-line-count.txt") == 5);
+        suite("meaningfulLineCount");
+        expectToThrow(
+                () -> Exercises.meaningfulLineCount("no-such-file.txt"),
+                FileNotFoundException.class,
+                "No such file");
+        expect(Exercises.meaningfulLineCount("../test-for-line-count.txt") == 5);
 
         // suite("Quaternion");
         // expectToThrow(() -> new Quaternion(Double.NaN, 0, 0, 0),
-        //         IllegalArgumentException.class, "Coefficients cannot be NaN");
+        // IllegalArgumentException.class, "Coefficients cannot be NaN");
         // expectToThrow(() -> new Quaternion(0, Double.NaN, 0, 0),
-        //         IllegalArgumentException.class, "Coefficients cannot be NaN");
+        // IllegalArgumentException.class, "Coefficients cannot be NaN");
         // expectToThrow(() -> new Quaternion(0, 0, Double.NaN, 0),
-        //         IllegalArgumentException.class, "Coefficients cannot be NaN");
+        // IllegalArgumentException.class, "Coefficients cannot be NaN");
         // expectToThrow(() -> new Quaternion(0, 0, 0, Double.NaN),
-        //         IllegalArgumentException.class, "Coefficients cannot be NaN");
+        // IllegalArgumentException.class, "Coefficients cannot be NaN");
 
         // var q = new Quaternion(3.5, 2.25, -100, -1.25);
         // expect(q.a() == 3.5);
@@ -129,10 +129,12 @@ public class ExercisesTest {
         // expect(("" + Quaternion.ZERO).equals("0"));
         // expect(("" + Quaternion.J).equals("j"));
         // expect(("" + Quaternion.K.conjugate()).equals("-k"));
-        // expect(("" + Quaternion.J.conjugate().times(new Quaternion(2, 0, 0, 0))).equals("-2.0j"));
+        // expect(("" + Quaternion.J.conjugate().times(new Quaternion(2, 0, 0,
+        // 0))).equals("-2.0j"));
         // expect(("" + Quaternion.J.plus(Quaternion.K)).equals("j+k"));
         // expect(("" + new Quaternion(0, -1, 0, 2.25)).equals("-i+2.25k"));
-        // expect(("" + new Quaternion(-20, -1.75, 13, -2.25)).equals("-20.0-1.75i+13.0j-2.25k"));
+        // expect(("" + new Quaternion(-20, -1.75, 13,
+        // -2.25)).equals("-20.0-1.75i+13.0j-2.25k"));
         // expect(("" + new Quaternion(-1, -2, 0, 0)).equals("-1.0-2.0i"));
         // expect(("" + new Quaternion(1, 0, -2, 5)).equals("1.0-2.0j+5.0k"));
 
