@@ -20,7 +20,31 @@ func firstThenLowerCase(of strings: [String], satisfying predicate: (String) -> 
     return strings.first(where: predicate)?.lowercased()
 }
 // Write your say function here
+struct Say {
+    private var words: [String]
+    
+    init(_ word: String = "") {
+        self.words = word.isEmpty ? [] : [word]
+    }
+    
+    var phrase: String {
+        return words.joined(separator: " ")
+    }
+    
+    func and(_ word: String) -> Say {
+        var newWords = words
+        newWords.append(word)
+        return Say(words: newWords)
+    }
+    
+    private init(words: [String]) {
+        self.words = words
+    }
+}
 
+func say(_ word: String = "") -> Say {
+    return Say(word)
+}
 // Write your meaningfulLineCount function here
 
 // Write your Quaternion struct here
