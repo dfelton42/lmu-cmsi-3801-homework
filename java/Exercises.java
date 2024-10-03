@@ -25,40 +25,34 @@ public class Exercises {
     public static Optional<String> firstThenLowerCase(List<String> strings, Predicate<String> predicate) {
         return strings.stream()
                 .filter(predicate)
-                .map(String::toLowerCase)
-                .findFirst();
+                .findFirst()
+                .map(String::toLowerCase);
     }
 
-    public static Say say(String... words) {
-        // Join words, and trim leading/trailing spaces
-        String initialPhrase = String.join(" ", words).trim();
-        return new Say(initialPhrase);
-    }
-
-    public static class Say {
-        private final String accumulatedPhrase;
-
-        public Say(String initialPhrase) {
-            this.accumulatedPhrase = (initialPhrase == null) ? "" : initialPhrase.trim();
-        }
-
-        public Say and(String word) {
-            // Handle empty or null strings gracefully
-            if (word == null || word.trim().isEmpty()) {
-                return this; // Return the current instance if the word is empty
+    static record Sayer(String phrase) {
+        Sayer and(String word) {
+            if (word == null || word.isEmpty()) {
+                return this; // Return the current phrase unchanged if the word is null or empty
             }
 
-            // Create a new phrase; add a space before the new word if the accumulated
-            // phrase is not empty
-            String newPhrase = accumulatedPhrase.isEmpty() ? word : accumulatedPhrase + " " + word.trim();
+            String trimmedWord = word.trim();
 
-            // Return a new instance with the updated phrase
-            return new Say(newPhrase);
+            // If the current phrase is empty, we return the trimmed word directly
+            if (this.phrase.isEmpty()) {
+                return new Sayer(trimmedWord);
+            } else {
+                // Append the trimmed word with a space only if the trimmedWord is not empty
+                return new Sayer(this.phrase + (this.phrase.endsWith(" ") ? "" : " ") + trimmedWord);
+            }
         }
+    }
 
-        public String phrase() {
-            return accumulatedPhrase;
-        }
+    public static Sayer say() {
+        return new Sayer("");
+    }
+
+    public static Sayer say(String word) {
+        return new Sayer(word != null ? word.trim() : "");
     }
 
     public static long meaningfulLineCount(String filename) throws FileNotFoundException, IOException {
@@ -71,7 +65,157 @@ public class Exercises {
         }
     }
 
-    // Write Quaternion record here
+}
 
-    // Write binary search tree here
+record Quaternion(double a, double b, double c, double d) {
+
+    public final static Quaternion ZERO = new Quaternion(0, 0, 0, 0);
+    public final static Quaternion I = new Quaternion(0, 1, 0, 0);
+    public final static Quaternion J = new Quaternion(0, 0, 1, 0);
+    public final static Quaternion K = new Quaternion(0, 0, 0, 1);
+
+    public Quaternion {
+        if (Double.isNaN(a) || Double.isNaN(b) || Double.isNaN(c) || Double.isNaN(d)) {
+            throw new IllegalArgumentException("Coefficients cannot be NaN");
+        }
+    }
+
+    Quaternion plus(Quaternion other) {
+        return new Quaternion(a + other.a, b + other.b, c + other.c, d + other.d);
+    }
+
+    Quaternion times(Quaternion other) {
+        return new Quaternion(
+                a * other.a - b * other.b - c * other.c - d * other.d,
+                a * other.b + b * other.a + c * other.d - d * other.c,
+                a * other.c - b * other.d + c * other.a + d * other.b,
+                a * other.d + b * other.c - c * other.b + d * other.a);
+    }
+
+    public Quaternion conjugate() {
+        return new Quaternion(a, -b, -c, -d);
+    }
+
+    public List<Double> coefficients() {
+        return List.of(a, b, c, d);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        // Handle 'a' part
+        if (a != 0) {
+            sb.append(a);
+        }
+
+        // Handle 'b' part
+        if (b != 0) {
+            if (sb.length() > 0) {
+                sb.append(b > 0 ? "+" : ""); // Add '+' for positive numbers
+            }
+            sb.append(b == 1 ? "i" : (b == -1 ? "-i" : b + "i")); // Handle special cases for 1 and -1
+        }
+
+        // Handle 'c' part
+        if (c != 0) {
+            if (sb.length() > 0) {
+                sb.append(c > 0 ? "+" : ""); // Add '+' for positive numbers
+            }
+            sb.append(c == 1 ? "j" : (c == -1 ? "-j" : c + "j")); // Handle special cases for 1 and -1
+        }
+
+        // Handle 'd' part
+        if (d != 0) {
+            if (sb.length() > 0) {
+                sb.append(d > 0 ? "+" : ""); // Add '+' for positive numbers
+            }
+            sb.append(d == 1 ? "k" : (d == -1 ? "-k" : d + "k")); // Handle special cases for 1 and -1
+        }
+
+        // If all coefficients are zero
+        if (sb.length() == 0) {
+            return "0";
+        }
+
+        return sb.toString();
+    }
+
+}
+
+sealed interface BinarySearchTree permits Empty, Node {
+    int size();
+
+    boolean contains(String value);
+
+    BinarySearchTree insert(String value);
+}
+
+final record Empty() implements BinarySearchTree {
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean contains(String value) {
+        return false;
+    }
+
+    @Override
+    public BinarySearchTree insert(String value) {
+        return new Node(value, this, this);
+    }
+
+    @Override
+    public String toString() {
+        return "()";
+    }
+}
+
+final class Node implements BinarySearchTree {
+    private final String value;
+    private final BinarySearchTree left;
+    private final BinarySearchTree right;
+
+    Node(String value, BinarySearchTree left, BinarySearchTree right) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public int size() {
+        return 1 + left.size() + right.size();
+    }
+
+    @Override
+    public boolean contains(String value) {
+        return this.value.equals(value) || left.contains(value) || right.contains(value);
+    }
+
+    @Override
+    public BinarySearchTree insert(String value) {
+        if (value.compareTo(this.value) < 0) {
+            return new Node(this.value, left.insert(value), right);
+        } else {
+            return new Node(this.value, left, right.insert(value));
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        if (!(left instanceof Empty)) {
+            sb.append(left.toString());
+        }
+        sb.append(value);
+        if (!(right instanceof Empty)) {
+            sb.append(right.toString());
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
 }
