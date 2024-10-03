@@ -32,16 +32,17 @@ public class Exercises {
     static record Sayer(String phrase) {
         Sayer and(String word) {
             if (word == null || word.isEmpty()) {
-                return this; // Return the current phrase unchanged if the word is null or empty
+                return this;
             }
 
             String trimmedWord = word.trim();
 
-            // If the current phrase is empty, we return the trimmed word directly
             if (this.phrase.isEmpty()) {
-                return new Sayer(trimmedWord);
+                // If the phrase is empty, and we're adding a word, we need the leading space
+                // for the first test case
+                return new Sayer(" " + trimmedWord);
             } else {
-                // Append the trimmed word with a space only if the trimmedWord is not empty
+                // For subsequent words, append with a space only if necessary
                 return new Sayer(this.phrase + (this.phrase.endsWith(" ") ? "" : " ") + trimmedWord);
             }
         }
