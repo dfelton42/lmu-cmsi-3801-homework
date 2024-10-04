@@ -65,7 +65,57 @@ func meaningfulLineCount(_ filename: String) async -> Result<Int, Error> {
     }
 }
 // Write your Quaternion struct here
+struct Quaternion: Equatable {
+    private(set) var a: Double
+    private(set) var b: Double
+    private(set) var c: Double
+    private(set) var d: Double
+    
+    static let ZERO = Quaternion(a: 0, b: 0, c: 0, d: 0)
+    static let I = Quaternion(a: 0, b: 1, c: 0, d: 0)
+    static let J = Quaternion(a: 0, b: 0, c: 1, d: 0)
+    static let K = Quaternion(a: 0, b: 0, c: 0, d: 1)
+    
+    init(a: Double, b: Double = 0, c: Double = 0, d: Double = 0) {
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+    }
+    
+    var coefficients: [Double] {
+        return [a, b, c, d]
+    }
+    
+    var conjugate: Quaternion {
+        return Quaternion(a: a, b: -b, c: -c, d: -d)
+    }
+    
+    static func + (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
+        return Quaternion(a: lhs.a + rhs.a, b: lhs.b + rhs.b, c: lhs.c + rhs.c, d: lhs.d + rhs.d)
+    }
+    
+    static func * (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
+        return Quaternion(
+            a: lhs.a * rhs.a - lhs.b * rhs.b - lhs.c * rhs.c - lhs.d * rhs.d,
+            b: lhs.a * rhs.b + lhs.b * rhs.a + lhs.c * rhs.d - lhs.d * rhs.c,
+            c: lhs.a * rhs.c - lhs.b * rhs.d + lhs.c * rhs.a + lhs.d * rhs.b,
+            d: lhs.a * rhs.d + lhs.b * rhs.c - lhs.c * rhs.b + lhs.d * rhs.a
+        )
+    }
+    
+    var description: String {
+        let components = [
+            a != 0 ? "\(a)" : nil,
+            b != 0 ? (b > 0 ? "+\(b)i" : "\(b)i") : nil,
+            c != 0 ? (c > 0 ? "+\(c)j" : "\(c)j") : nil,
+            d != 0 ? (d > 0 ? "+\(d)k" : "\(d)k") : nil
+        ]
+        return components.compactMap { $0 }.joined(separator: "").isEmpty ? "0" : components.compactMap { $0 }.joined(separator: "")
+    }
+}
 
+extension Quaternion: CustomStringConvertible {}
 // Write your Binary Search Tree enum here
 enum BinarySearchTree: CustomStringConvertible, Equatable {
     case empty
