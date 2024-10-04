@@ -78,7 +78,7 @@ public class ExercisesTest {
                 expect(Exercises.say("hi ").and(" there").phrase().equals("hi there"));
                 expect(Exercises.say("").and("").and("dog").and("").and("go").phrase()
                                 .equals(" dog go"));
-                expect(Exercises.say("🐤🦇").and("$🦊👏🏽").and("!").phrase().equals("🐤🦇$🦊👏🏽 !"));
+                expect(Exercises.say("🐤🦇").and("$🦊👏🏽").and("!").phrase().equals("🐤🦇 $🦊👏🏽 !"));
                 expect(Exercises.say("😄🤗").and("💀👊🏾").phrase().equals("😄🤗 💀👊🏾"));
                 // Ensure there is no sharing of partial states!
                 var greet = Exercises.say("Hello").and("there");
