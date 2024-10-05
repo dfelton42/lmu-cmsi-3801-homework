@@ -105,7 +105,7 @@ record Quaternion(double a, double b, double c, double d) {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        // Handle 'a' part
+         // Handle 'a' part
         if (a != 0) {
             sb.append(a);
         }
