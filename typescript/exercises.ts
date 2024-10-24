@@ -128,7 +128,7 @@ class Node<T> implements BinarySearchTree<T> {
       return new Node(this.value, this.left, newRight)
     }
     // If value is equal, do not insert and return this (immutable)
-    return this
+    return this // Ensuring immutability
   }
 
   contains(value: T): boolean {
