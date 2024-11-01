@@ -128,7 +128,7 @@ class Node<T> implements BinarySearchTree<T> {
       return new Node(this.value, this.left, newRight)
     }
     // If value is equal, do not insert and return this (immutable)
-    return this
+    return this // Ensuring immutability
   }
 
   contains(value: T): boolean {
@@ -150,9 +150,24 @@ class Node<T> implements BinarySearchTree<T> {
   toString(): string {
     const leftStr = this.left.toString()
     const rightStr = this.right.toString()
-    const leftPart = leftStr ? `(${leftStr})` : ""
-    const rightPart = rightStr ? `(${rightStr})` : ""
-    return `${leftPart}${this.value}${rightPart}`
+
+    // If both children are empty, just return the value wrapped in parentheses
+    if (leftStr === "()" && rightStr === "()") {
+      return `(${this.value})`
+    }
+
+    // If only the right child is empty, include only the left child and the value
+    if (rightStr === "()") {
+      return `(${leftStr}${this.value})`
+    }
+
+    // If only the left child is empty, include the value and the right child
+    if (leftStr === "()") {
+      return `(${this.value}${rightStr})`
+    }
+
+    // If both children are non-empty, include both left and right
+    return `(${leftStr}${this.value}${rightStr})`
   }
 }
 
