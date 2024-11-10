@@ -9,7 +9,7 @@
 using namespace std;
 
 // A stack object wraps a low-level array indexed from 0 to capacity-1 where
-// the bottommost element (if it exists) will be in slot 0. The member top is
+// the bottommost element (if it ex ists) will be in slot 0. The member top is
 // the index of the slot above the top element, i.e. the next available slot
 // that an element can go into. Therefore if top==0 the stack is empty and
 // if top==capacity it needs to be expanded before pushing another element.
@@ -21,31 +21,71 @@ using namespace std;
 
 template <typename T>
 class Stack {
-  // Add three fields: elements, a smart pointer to the array of elements,
-  // capacity, the current capacity of the array, and top, the index of the
-  // next available slot in the array.
+  unique_ptr<T[]> elements;
+  int capacity;
+  int top;
 
   // Prohibit copying and assignment
-  
+  Stack(const Stack<T>&) = delete;
+  Stack<T>& operator=(const Stack<T>&) = delete;
+
 public:
-  // Write your stack constructor here
+  // Constructor
+  Stack() : top(0), capacity(INITIAL_CAPACITY), elements(make_unique<T[]>(INITIAL_CAPACITY)) {}
 
-  // Write your size() method here
+  // Returns the number of elements in the stack
+  int size() const {
+    return top;
+  }
 
-  // Write your is_empty() method here
+  // Checks if the stack is empty
+  bool is_empty() const {
+    return top == 0;
+  }
 
-  // Write your is_full() method here
+  // Checks if the stack has reached its current capacity
+  bool is_full() const {
+    return top == capacity;
+  }
 
-  // Write your push() method here
+  // Adds an item to the stack
+  void push(T item) {
+    if (top == MAX_CAPACITY) {
+      throw overflow_error("Stack has reached maximum capacity");
+    }
+    if (top == capacity) {
+      reallocate(2 * capacity);
+    }
+    elements[top++] = item;
+  }
 
-  // Write your pop() method here
+  // Removes and returns the top item of the stack
+  T pop() {
+    if (is_empty()) {
+      throw underflow_error("Cannot pop from empty stack");
+    }
+    T item = elements[--top]; // Retrieve the top element and decrement top
+    elements[top] = T(); // Clear the slot for security
+
+    // Shrink capacity if the stack is less than 25% full, but not below INITIAL_CAPACITY
+    if (top > 0 && top <= capacity / 4 && capacity > INITIAL_CAPACITY) {
+      reallocate(capacity / 2);
+    }
+    return item;
+  }
 
 private:
-  // We recommend you make a PRIVATE reallocate method here. It should
-  // ensure the stack capacity never goes above MAX_CAPACITY or below
-  // INITIAL_CAPACITY. Because smart pointers are involved, you will need
-  // to use std::move() to transfer ownership of the new array to the stack
-  // after (of course) copying the elements from the old array to the new
-  // array with std::copy().
-
+  // Reallocate stack capacity within bounds, preserving existing elements
+  void reallocate(int new_capacity) {
+    if (new_capacity > MAX_CAPACITY) {
+      new_capacity = MAX_CAPACITY;
+    }
+    if (new_capacity < INITIAL_CAPACITY) {
+      new_capacity = INITIAL_CAPACITY;
+    }
+    auto new_elements = make_unique<T[]>(new_capacity);
+    copy(&elements[0], &elements[top], &new_elements[0]); // Copy elements up to current top
+    elements = move(new_elements); // Move new array to elements
+    capacity = new_capacity;
+  }
 };
