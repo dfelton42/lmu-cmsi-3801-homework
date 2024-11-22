@@ -5,16 +5,40 @@ pub struct Stack<T> {
 
 impl<T> Stack<T> {
     // Implement new
+    /// Creates a new empty stack.
+    pub fn new() -> Self {
+        Stack { items: Vec::new() }
+    }
 
     // Implement push
+    /// Pushes an item onto the stack.
+    pub fn push(&mut self, item: T) {
+        self.items.push(item);
+    }
 
     // Implement pop
+    /// Pops the top item off the stack. Returns `None` if the stack is empty.
+    pub fn pop(&mut self) -> Option<T> {
+        self.items.pop()
+    }
 
     // Implement peek
+    /// Peeks at the top item of the stack. Returns `None` if the stack is empty.
+    pub fn peek(&self) -> Option<&T> {
+        self.items.last()
+    }
 
     // Implement is_empty
+    /// Returns `true` if the stack is empty.
+    pub fn is_empty(&self) -> bool {
+        self.items.is_empty()
+    }
 
     // Implement len
+    /// Returns the number of items on the stack.
+    pub fn len(&self) -> usize {
+        self.items.len()
+    }
 }
 
 #[cfg(test)]
