@@ -3,13 +3,10 @@ package main
 import (
 	"log"
 	"math/rand"
+	"sync"
+	"sync/atomic"
 	"time"
 )
-
-// A little utility that simulates performing a task for a random duration.
-// For example, calling do(10, "Remy", "is cooking") will compute a random
-// number of milliseconds between 5000 and 10000, log "Remy is cooking",
-// and sleep the current goroutine for that much time.
 
 func do(seconds int, action ...any) {
     log.Println(action...)
@@ -17,5 +14,78 @@ func do(seconds int, action ...any) {
     time.Sleep(time.Duration(randomMillis) * time.Millisecond)
 }
 
-// Implement the rest of the simulation here. You may need to add more imports
-// above.
+type Order struct {
+    id uint64
+    customer string
+    reply chan *Order
+    preparedBy string
+}
+
+var nextId atomic.Uint64 
+
+// a waiter can only hold 3 orders at once
+var Waiter = make(chan *Order, 3)
+
+func Cook(name string) {
+    log.Println(name, "starting work")
+    for {
+        // fetch order from waiter
+        order := <- Waiter
+        // cook the order
+        do(10, name, "is cooking order", order.id, "for", order.customer)
+        // assign the cook's name to order
+        order.preparedBy = name
+        // send order back to customer
+        order.reply <- order
+    }
+}
+
+func Customer(name string, wg *sync.WaitGroup ) {
+    defer wg.Done()
+    for mealsEaten := 0; mealsEaten < 5; {
+        // create new order 
+        order := &Order{
+            id: nextId.Add(1),
+            customer: name,
+            reply: make(chan *Order),
+        }
+        log.Println(name, "placed order", order.id)
+
+        select {
+            // try to place order with waiter within 7s
+        case Waiter <- order:
+            // wait for meal
+            meal := <- order.reply
+            // eat meal 
+            do(2, name, "is eating meal", meal.id, "prepared by", meal.preparedBy)
+            mealsEaten++
+        case <- time.After(7 * time.Second):
+            do(5, name, "is waiting too long, abandoning order", order.id)
+        }
+    }
+    log.Println(name, "is going home")
+}
+
+func main() {
+    customers := [10]string{
+        "Ani", "Bai", "Cat", "Dao", "Eve", "Fay", "Gus", "Hua", "Iza", "Jai",
+    }
+
+    // in a loop, start each customer as a goroutine
+    var wg sync.WaitGroup
+
+    // start customers as goroutine
+    for _, customer := range customers {
+        wg.Add(1)
+        go Customer(customer, &wg)
+    }
+
+    // start 3 cooks, Remy, Linguini, and Colette
+    go Cook("Remy")
+    go Cook("Linguini")
+    go Cook("Colette")
+    
+    // wait for customers to go home
+    wg.Wait()
+    log.Println("Restaurant closing")
+}
